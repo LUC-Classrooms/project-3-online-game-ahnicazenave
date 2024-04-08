@@ -1,12 +1,13 @@
 /**
  * Project 3 versions 0-4 - 2D Web Game
- * Name:
+ * Name: Ahni Cazenave
  * 
  * Use this template to get started creating a simple 2D game for the web using P5.js. 
  */
 
-function setup() {
+var gameState = "splash";
 
+function setup() {
   createCanvas(600, 400);
 
 }
@@ -17,7 +18,20 @@ function draw() {
   //splash(); // call the splash screen function (below)
   //play(); // call the play screen function (below)
   //gameOver(); // call the gameOver screen function (below)
-
+  switch (gameState)  {
+    case "splash" :
+      splash(); // go to the "splash" screen
+      break;
+    case "play" :
+      play(); // go to the "play" screen
+      break;
+    case "gameOver" :
+      gameOver(); // go to the "game over" screen
+      break;
+    default :
+      console.log("no match found");
+  
+  }
 }
 
 function splash() {
@@ -50,7 +64,13 @@ function gameOver() {
 }
 
 function mousePressed() {
-
+  
   console.log("click!");
-
+  if(gameState == "splash") { 
+    gameState = "play"; 
+} else if(gameState == "play") { 
+    gameState = "gameOver"; 
+} else if(gameState == "gameOver") { 
+    gameState = "splash"; 
+} 
 }
