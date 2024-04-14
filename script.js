@@ -6,9 +6,11 @@
  */
 
 var gameState = "splash";
+var player1;
 
 function setup() {
   createCanvas(600, 400);
+  player1 = new Player(width/2, height * 6/8);
 
 }
 
@@ -51,6 +53,7 @@ function play() {
   textAlign(CENTER);
   textSize(16);
   text("This is where the Game happens", width / 2, height / 2);
+  player1.display(); 
 
 }
 
@@ -73,4 +76,33 @@ function mousePressed() {
 } else if(gameState == "gameOver") { 
     gameState = "splash"; 
 } 
+
+}
+
+function keyPressed() {
+  switch(keyCode) {
+    case UP_ARROW :
+      player1.y -= 30;
+      player1.angle = 0; 
+      if(player1.y < 0) player1.y = height;
+      break;
+    case DOWN_ARROW :
+      player1.y += 30;
+      player1.angle = PI;
+      if(player1.y > height) player1.y = 0;
+      break;
+    case LEFT_ARROW :
+      player1.x -= 30;
+      player1.angle = PI + PI/2;
+      if(player1.x < 0) player1.x = width;
+      break;
+    case RIGHT_ARROW :
+      player1.x += 30;
+      player1.angle = PI/2;
+      if(player1.x > width) player1.x = 0;
+      break;
+    default :
+      console.log("use the arrow keys to move!");
+  }
+
 }
