@@ -7,10 +7,12 @@
 
 var gameState = "splash";
 var player1;
+var gameTimer; //time for game play
 
 function setup() {
   createCanvas(600, 400);
   player1 = new Player(width/2, height * 6/8);
+  gameTimer = new Timer(5000); // 5 seconds
 
 }
 
@@ -50,10 +52,13 @@ function play() {
   // this is what you see when the game is running 
   background(0, 200, 0);
   fill(0, 0, 200)
-  textAlign(CENTER);
+  textAlign(LEFT);
   textSize(16);
-  text("This is where the Game happens", width / 2, height / 2);
+  text("elapsed time: " + gameTimer.elapsedTime, 20, 30);
   player1.display(); 
+  if(gameTimer.isFinished()){
+    gameState = "gameOver";
+  }
 
 }
 
@@ -71,8 +76,9 @@ function mousePressed() {
   console.log("click!");
   if(gameState == "splash") { 
     gameState = "play"; 
+    gameTimer.start(); //start the timer
 } else if(gameState == "play") { 
-    gameState = "gameOver"; 
+    //gameState = "gameOver"; 
 } else if(gameState == "gameOver") { 
     gameState = "splash"; 
 } 
