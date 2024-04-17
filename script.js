@@ -8,11 +8,16 @@
 var gameState = "splash";
 var player1;
 var gameTimer; //time for game play
+var testBox; // a box to preview on the splash screen
+var dropTimer; // regulate box drops
+var presents = new Array(0); // an empty array called "presents"
 
 function setup() {
   createCanvas(600, 400);
   player1 = new Player(width/2, height * 6/8);
-  gameTimer = new Timer(5000); // 5 seconds
+  gameTimer = new Timer(10000); // 10 seconds
+  dropTimer = new Timer(1000);
+  testBox = new Box(width/2, height/3);
 
 }
 
@@ -46,6 +51,8 @@ function splash() {
   text("Let's Play a Game!", width / 2, height / 2);
   textSize(12);
   text("(click the mouse to continue)", width / 2, height / 2 + 30);
+  testBox.display();
+  testBox.spin();
 }
 
 function play() {
@@ -59,8 +66,32 @@ function play() {
   if(gameTimer.isFinished()){
     gameState = "gameOver";
   }
+  if(dropTimer.isFinished()) {
+    let p = new Box(random(width), -40);
+    // new box, anywhere across the width of the canvas, but 40px above the canvas
+    presents.push(p); // add object 'p' to the 'presents' Array
+    dropTimer.start(); // restart timer for next drop
+  }
 
-}
+  for(let i = 0; i < presents.length; i++) { 
+    // for each present in the array, do the following:
+    presents[i].display(); // show it on the canvas
+    presents[i].move(); // make it fall
+    presents[i].spin(); // make it spin
+  
+    if(presents[i].y > height) {
+      // present went below the canvas
+      presents.splice(i, 1); // remove from array
+    }
+    let d = dist(presents[i].x, presents[i].y, player1.x, player1.y);
+    if (d < 50) {
+      // if it's within 50 pixels, do something!
+    }
+    if (d < 50) {
+      presents.splice(i, 1); // remove 1 item at index 'i'
+    }
+  }
+  }
 
 function gameOver() {
   // this is what you see when the game ends
@@ -77,6 +108,7 @@ function mousePressed() {
   if(gameState == "splash") { 
     gameState = "play"; 
     gameTimer.start(); //start the timer
+    dropTimer.start(); // start the drop timer for presents
 } else if(gameState == "play") { 
     //gameState = "gameOver"; 
 } else if(gameState == "gameOver") { 
