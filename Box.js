@@ -9,13 +9,13 @@ function Box(_x, _y){
   this.angle = 0;
 
   /* choose a color scheme at random */
-  if(random(100) > 50){ // 50-50 chance
+  //if(random(100) > 50){ // 50-50 chance
     this.boxColor = color(random(100, 255), 0, 0); // red
     this.ribbonColor = color(0, random(100, 255), 0); // green
-  } else {
+ // } else {
     this.boxColor = color(0, random(100, 255), 0); // green
     this.ribbonColor = color(random(100, 255), 0, 0); // red
-  }
+ // }
 
   this.display = function(){
 
@@ -23,13 +23,10 @@ function Box(_x, _y){
     translate(this.x, this.y);
     rotate(this.angle);
 
-    rectMode(CENTER);
-    fill(this.boxColor);
-    rect(0, 0, 40); // 40px square
-
-    fill(this.ribbonColor);
-    rect(0, 0, 40, 10); // horizontal ribbon
-    rect(0, 0, 10, 40); // vertical ribbon
+    ellipseMode(CENTER);
+    fill(250);
+    noStroke();
+    ellipse(0, 0, 20); //make dog bone
 
     pop();
 

@@ -57,8 +57,8 @@ function splash() {
 
 function play() {
   // this is what you see when the game is running 
-  background(0, 200, 0);
-  fill(0, 0, 200)
+  background(115, 194, 251);
+  fill(250)
   textAlign(LEFT);
   textSize(16);
   text("elapsed time: " + gameTimer.elapsedTime, 20, 30);
@@ -117,7 +117,7 @@ function mousePressed() {
 
 }
 
-function keyPressed() {
+function keyPressed () {
   switch(keyCode) {
     case UP_ARROW :
       player1.y -= 30;

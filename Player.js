@@ -2,45 +2,56 @@ function Player(tempX, tempY) {
   // properties
   this.x = tempX;
   this.y = tempY;
+  this.s = .4
   this.diam = 50;
   this.angle = 0;
 
   this.display = function () {
-    push(); // create a drawing layer
-    translate(this.x, this.y); // move origin point
-    rotate(this.angle); // player can rotate
-
-    fill(0); // black
-    /** calculate points on a triangle based on a unit circle. You could use this method to draw more complex polygons that would fit inside a circle centered on (this.x, this.y)
-     * For any point around the circle, x = the cosine of the angle in radians from 0 to TWO_PI, and y = the sine of that angle. an angle of 0 is the right side of the circle, PI is the left side. 
-     * The points generated this way are relative to the coordinate point (0,0). 
-     * The translate() function (above, line 10) takes care of moving it on the canvas.
-     * 
-    */
-    let r = this.diam / 2; // radius
-    // 270 degrees (top):
-    let x1 = cos(PI + HALF_PI) * r; 
-    let y1 = sin(PI + HALF_PI) * r; 
-    // 30 degrees (bottom right):
-    let x2 = cos(PI / 6) * r;
-    let y2 = sin(PI / 6) * r;
-    // 150 degrees (bottom left): 
-    let x3 = cos(PI * 5 / 6) * r;
-    let y3 = sin(PI * 5 / 6) * r;
-    //draw the triangle:
-    //triangle(x1, y1, x2, y2, x3, y3);
-    //or draw a complex polygon
     beginShape();
-    vertex(x1, y1);
-    vertex(x2, y2);
-    vertex(x3, y3);
+    //floor
+    push(); //create new layer
+    translate(this.x, this.y); //move origin point
+    rotate(this.r); 
+    scale(this.s);
+    fill(234, 221, 202); // beige dog color
+    //tail
+    triangle(65, -20, 45, 45, 20, 35);//resting tail when mouse NOT pressed 
+    //back legs
+    quad(-95, 75, -40, 45, -50, 90, -80, 105); //left dog back leg
+    quad(40, 45, 95, 75, 80, 105, 50, 90); //right dog back leg
+    //body
+    quad(-30, -15, 30, -15, 60, 95, -60, 95); //dog body background
+    fill(240) //white belly color
+    ellipse(0, 45, 50, 60) //belly 
+    strokeWeight(.75); //front legs stroke
+    line(-40, 40, -50, 90); //left line of front left leg
+    line(-50, 90, -20, 90); //bottom line of front left leg
+    line(-20, 90, -15, 40); //right line of front left leg
+    line(15, 40, 20, 90); //left line of front right leg
+    line(20, 90, 50, 90); //bottom line of front left leg
+    line(50, 90, 40, 40); //right line of front right leg
+    //ears
+    strokeWeight(.5); //stroke weight for everything besides front legs
+    fill(234, 221, 202); // beige dog color
+    ellipse(-25, -135, 25, 50); //left dog ear
+    ellipse(25, -135, 25, 50); //right dog ear
+    fill(243, 207, 198); //inner ear pink color 
+    ellipse(-25, -130, 15, 35); //left inner dog ear
+    ellipse(25, -130, 15, 35); //right inner dog ear
+    //head
+    fill(234, 221, 202); // beige dog color
+    quad(-35, -115, 35, -115, 60, -15, -60, -15); //dog head
+    fill(0); // eyes and nose black color
+    ellipse(-20, -85, 15); //left eye iris
+    ellipse(20, -85, 15); //right eye iris
+    ellipse(0, -45, 30, 20); //nose
+    fill(255); // eyes white color 
+    ellipse(-20, -87, 9); //left eye pupil
+    ellipse(20, -87, 9); //right eye pupil
+    pop(); //dispose of layer
+
     endShape();
-    // uncomment the next two lines to see the circle
-    // noFill();
-    // ellipse(0, 0, this.diam, this.diam);
-
-    pop(); // dispose of this layer
-
+  
   }
 
 
