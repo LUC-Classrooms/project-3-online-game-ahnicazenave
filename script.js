@@ -46,7 +46,7 @@ function draw() {
 
 function splash() {
   // this is what you would see when the game starts
-  background(200);
+  background(115, 194, 251);
   textAlign(CENTER);
   textSize(16);
   fill(0);
@@ -54,7 +54,7 @@ function splash() {
   textSize(12);
   text("(click the mouse to continue)", width / 2, height / 2 + 30);
   testBox.display();
-  testBox.spin();
+  //testBox.spin();
 }
 
 function play() {
@@ -103,7 +103,7 @@ function play() {
 
 function gameOver() {
   // this is what you see when the game ends
-  background(0);
+  background(50);
   fill(255, 0, 0)
   textAlign(CENTER);
   textSize(16);
