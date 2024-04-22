@@ -16,8 +16,8 @@ var score = 0;
 function setup() {
   createCanvas(600, 400);
   player1 = new Player(width/2, height * 6/8);
-  gameTimer = new Timer(10000); // 10 seconds
-  dropTimer = new Timer(1000);
+  gameTimer = new Timer(30000); // 30 seconds for game
+  dropTimer = new Timer(1000); //drop every second
   testBox = new Box(width/2, height/3);
 
 }
@@ -46,13 +46,16 @@ function draw() {
 
 function splash() {
   // this is what you would see when the game starts
-  background(115, 194, 251);
+  background(234, 221, 202);
   textAlign(CENTER);
-  textSize(16);
+  textSize(20);
   fill(0);
-  text("Let's Play a Game!", width / 2, height / 2);
+  text("Collect as Many Bones as You Can!", width / 2, height / 2);
+  textSize(16);
+  text("...you have 30 seconds", width/2, height/2+30);
   textSize(12);
-  text("(click the mouse to continue)", width / 2, height / 2 + 30);
+  fill(165, 42, 42);
+  text("(click the mouse to continue)", width / 2, height / 2 + 80);
   testBox.display();
   //testBox.spin();
 }
@@ -77,25 +80,20 @@ function play() {
     presents[i].display(); // show it on the canvas
     presents[i].move(); // make it fall
     presents[i].spin(); // make it spin
-  
-    if(presents[i].y > height) {
-      // present went below the canvas
-      presents.splice(i, 1); // remove from array
-      score --; //lose point if missed
-    }
+
     let d = dist(presents[i].x, presents[i].y, player1.x, player1.y);
     if (d < 50) {
-      // if it's within 50 pixels, do something!
-    }
-    if (d < 50) {
+      presents.splice(i, 1); 
+      score ++;
+    } else if (d < 50) {
       presents.splice(i, 1); // remove 1 item at index 'i'
-      score ++; //gain point if touched
+      score --;
     }
   } //end of for loop
 
   textAlign(LEFT);
   textSize(16);
-  text("Elapsed Time: " + gameTimer.elapsedTime, 20, 30);
+  text("Time Left: " + (gameTimer.time - Math.trunc(gameTimer.elapsedTime))/1000, 20, 30);
 
   text("Score: " + score, 20, 50);
 
@@ -103,8 +101,8 @@ function play() {
 
 function gameOver() {
   // this is what you see when the game ends
-  background(50);
-  fill(255, 0, 0)
+  background(210, 43, 43);
+  fill(0);
   textAlign(CENTER);
   textSize(16);
   text("Game Over!", width / 2, height / 2);

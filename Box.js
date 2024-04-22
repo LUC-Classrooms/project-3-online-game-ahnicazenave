@@ -15,8 +15,6 @@ function Box(_x, _y){
     push();
     translate(this.x, this.y);
     scale(.7);
-    
-
   
     fill(250);
     noStroke();
