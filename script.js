@@ -85,7 +85,7 @@ function play() {
     if (d < 50) {
       presents.splice(i, 1); 
       score ++;
-    } else if (d < 50) {
+    } else if (presents[i].y > height) {
       presents.splice(i, 1); // remove 1 item at index 'i'
       score --;
     }
@@ -117,6 +117,7 @@ function mousePressed() {
     gameTimer.start(); //start the timer
     dropTimer.start(); // start the drop timer for presents
     score = 0; //restart score
+    player1 = new Player(width/2, height * 6/8);
 } else if(gameState == "play") { 
     //gameState = "gameOver"; 
 } else if(gameState == "gameOver") { 
